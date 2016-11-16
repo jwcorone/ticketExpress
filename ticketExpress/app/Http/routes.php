@@ -11,9 +11,12 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+
+
+
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -27,5 +30,18 @@ Route::get('/', function () {
 */
 
 Route::group(['middleware' => ['web']], function () {
-    //
+
+	Route::get('/', array('as' => '/', 'uses' => function(){
+	  return view('auth/login');
+	}));
+
+	Route::get('home', array('as' => 'home', 'uses' => function(){
+	  return view('home');
+	}));
+    
+    Route::get('auth/facebook', 'Auth\AuthController@redirectToProvider');
+	Route::get('auth/facebook/callback', 'Auth\AuthController@handleProviderCallback');
 });
+
+
+

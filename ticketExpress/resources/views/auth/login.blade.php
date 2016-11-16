@@ -8,7 +8,7 @@
 <body class="hold-transition login-page">
     <div class="login-box">
         <div class="login-logo">
-            <a href="{{ url('/home') }}"><b>Admin</b>LTE</a>
+            <a href="{{ url('/home') }}"><img src="../public/Recursos/logo.png" class="logo-lg" alt="Image" height="60%" width="60%"/>
         </div><!-- /.login-logo -->
 
     @if (count($errors) > 0)
@@ -23,7 +23,7 @@
     @endif
 
     <div class="login-box-body">
-    <p class="login-box-msg"> {{ trans('adminlte_lang::message.siginsession') }} </p>
+    <p class="login-box-msg"> {{ trans('adminlte_lang::message.siginsession') }}</p>
     <form action="{{ url('/login') }}" method="post">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
         <div class="form-group has-feedback">
@@ -35,14 +35,14 @@
             <span class="glyphicon glyphicon-lock form-control-feedback"></span>
         </div>
         <div class="row">
-            <div class="col-xs-8">
+            <div class="col-xs-6">
                 <div class="checkbox icheck">
                     <label>
                         <input type="checkbox" name="remember"> {{ trans('adminlte_lang::message.remember') }}
                     </label>
                 </div>
             </div><!-- /.col -->
-            <div class="col-xs-4">
+            <div class="col-xs-6">
                 <button type="submit" class="btn btn-primary btn-block btn-flat">{{ trans('adminlte_lang::message.buttonsign') }}</button>
             </div><!-- /.col -->
         </div>
