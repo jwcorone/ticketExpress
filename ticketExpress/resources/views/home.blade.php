@@ -10,10 +10,32 @@
 <script async defer
   src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCzp4ZqXQC0xsYh93Dzyu6OJeLOPU3v2Uo&callback=initMap">
 </script>
-
-        <div id="mapa" style="height:300px; width:300px;">
+    <div >
+        <div id="mapa" class="google-maps" >
         	cargando mapa
         </div>
+         <div>
+            <button type="submit" class="btn btn-primary btn-block btn-flat">{{ trans('adminlte_lang::message.buttonsign') }}</button>
+        </div><!-- /.col -->
+    </div>
+    <div>
+
+    </div>
+        <style>
+            .google-maps {
+            position: relative;
+            padding-bottom: 85%; // This is the aspect ratio
+            height: 0;
+            overflow: hidden;
+            }
+            .google-maps iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100% !important;
+            height: 100% !important;
+            }
+        </style>
         <script >
             var divmapa= document.getElementById('mapa');
             navigator.geolocation.getCurrentPosition( fn_ok ,fn_mal);

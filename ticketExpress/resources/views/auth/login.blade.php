@@ -8,7 +8,7 @@
 <body class="hold-transition login-page">
     <div class="login-box">
         <div class="login-logo">
-            <a href="{{ url('/home') }}"><img src="../public/Recursos/logo.png" class="logo-lg" alt="Image" height="60%" width="60%"/>
+            <a href="{{ url('/home') }}"><img src="../public/Recursos/logo.png" class="logo-lg" alt="Image" height="60%" width="60%"/></a>
         </div><!-- /.login-logo -->
 
     @if (count($errors) > 0)
@@ -50,7 +50,6 @@
 
     @include('auth.partials.social_login')
 
-    <a href="{{ url('/password/reset') }}">{{ trans('adminlte_lang::message.forgotpassword') }}</a><br>
     <a href="{{ url('/register') }}" class="text-center">{{ trans('adminlte_lang::message.registermember') }}</a>
 
 </div><!-- /.login-box-body -->

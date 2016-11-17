@@ -9,8 +9,8 @@
     <body class="hold-transition register-page">
     <div class="register-box">
         <div class="register-logo">
-            <a href="{{ url('/home') }}"><b>Admin</b>LTE</a>
-        </div>
+            <a href="{{ url('/home') }}"><img src="../public/Recursos/logo.png" class="logo-lg" alt="Image" height="60%" width="60%"/></a>
+        </div><!-- /.login-logo -->
 
         @if (count($errors) > 0)
             <div class="alert alert-danger">
@@ -44,21 +44,9 @@
                     <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
                 </div>
                 <div class="row">
-                    <div class="col-xs-1">
-                        <label>
-                            <div class="checkbox_register icheck">
-                                <label>
-                                    <input type="checkbox" name="terms">
-                                </label>
-                            </div>
-                        </label>
-                    </div><!-- /.col -->
-                    <div class="col-xs-6">
-                        <div class="form-group">
-                            <button type="button" class="btn btn-block btn-flat" data-toggle="modal" data-target="#termsModal">{{ trans('adminlte_lang::message.terms') }}</button>
-                        </div>
-                    </div><!-- /.col -->
-                    <div class="col-xs-4 col-xs-push-1">
+                    
+                    
+                    <div class="col-xs-12 ">
                         <button type="submit" class="btn btn-primary btn-block btn-flat">{{ trans('adminlte_lang::message.register') }}</button>
                     </div><!-- /.col -->
                 </div>
