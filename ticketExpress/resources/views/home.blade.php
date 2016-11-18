@@ -21,7 +21,7 @@
             </div>
         </div>
          <div>
-            <button type="submit" style="width:90%" class="btn btn-primary btn-block btn-flat">{{ trans('adminlte_lang::message.buttonsign') }}</button>
+            <button type="submit" style="width:90%" class="btn btn-primary btn-block btn-flat">Reservar bus</button>
         </div><!-- /.col -->
     </div>
 </div>
