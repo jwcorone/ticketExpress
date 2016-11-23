@@ -6,7 +6,7 @@
         <!-- mini logo for sidebar mini 50x50 pixels -->
         <span class="logo-mini"><b>A</b>LT</span>
         <!-- logo for regular state and mobile devices -->
-        <img src="../public/Recursos/logo.png" class="logo-lg" alt="Image" height="100%" width="100%"/>
+        <img src="/ticketExpress/ticketExpress/resources/image/logo.png" class="logo-lg" alt="Image" height="100%" width="100%"/>
 
     </a>
 
