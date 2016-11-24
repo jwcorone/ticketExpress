@@ -10,6 +10,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use App\Rutas;
+use App\Horarios;
 use DB;
 
 
@@ -45,4 +46,29 @@ class RutasController extends Controller
 
         return view('reservar.listar_rutas',compact('items','titulo'));
     }
+
+    public function listar2()
+    {   
+        $id = $_GET['id'];
+        $items = Horarios::where('rutas_id', '=', $id)->get();
+         foreach ($items as $item): 
+           $html = "<a id=' ".$item->id." ' href='#' class='list-group-item'><div class='col-sm-6'>".$item->salida."</div><div class='col-sm-6'>".$item->disponibles ."</div></a>";
+           echo $html;
+        
+        endforeach;
+        
+    }
+
+    public function confirmar($id)
+    {   
+        $horario=Horarios::find($id);
+        $ruta=Rutas::find($horario->rutas_id);
+
+        return view('reservar.confirmar_reserva',compact('horario','ruta'));
+    }
+
+
+
+
+  
 }

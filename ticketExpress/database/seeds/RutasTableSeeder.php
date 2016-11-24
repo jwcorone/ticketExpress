@@ -24,5 +24,17 @@ class RutasTableSeeder extends Seeder
         'nombre'=>'Alban Borja',
         'tipo'=>'salir',
      ));
+
+    Rutas::create(array(
+        'nombre'=>'Duran',
+        'tipo'=>'entrar',
+     ));
+
+    Rutas::create(array(
+        'nombre'=>'Duran',
+        'tipo'=>'salir',
+     ));
+
+
     }
 }

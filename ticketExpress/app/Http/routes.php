@@ -55,6 +55,15 @@ Route::group(['middleware' => ['web']], function () {
 
 	Route::get('listar_rutas/{opcion}', 'RutasController@listar_rutas');
 
+	Route::get('listar/{id}', 'RutasController@listar');
+
+	Route::get('listar', 'RutasController@listar2');
+
+	Route::get('confirmar/{id}', 'RutasController@confirmar');
+
+
+
+
 
 });
 
