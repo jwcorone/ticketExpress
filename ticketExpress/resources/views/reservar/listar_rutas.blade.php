@@ -53,11 +53,10 @@ $(document).ready(function(){
             
         </tr>
         </thead>
-        <tbody data-link="row" class="rowlink">
-        <tr>
-            <td><a href="../confirmar/11"><a>2016-11-05 12:36:50</td>
-            <td>20</td>
-        </tr>
+        <tbody data-link="row" class="rowlink" id="list2">
+        
+        
+        
         </tbody>
         </table>
 

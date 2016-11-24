@@ -31,7 +31,7 @@
             </div>
         </div>
          <div>
-            <a href="{{ url('/destino') }}" style="width:90%" class="btn btn-primary btn-block btn-flat">Reservar</a>
+            <a href="{{ url('/exito',[$horario->id]) }}" style="width:90%" class="btn btn-primary btn-block btn-flat">Reservar ahora</a>
         </div><!-- /.col -->
     </div>
 </div>
@@ -119,7 +119,7 @@
 
                 var gMarker = new google.maps.Marker(objConfigMarker);
 
-                 myMapsId = '1ac60zWDrQ7nH7iaVqeD0OOKJ5sg';
+                 myMapsId = '{{$ruta->archivo_KML}}';
                   new google.maps
                     .KmlLayer({
                       map: gMapa,

@@ -14,38 +14,123 @@ class HorariosTableSeeder extends Seeder
      public function run()
     {
         DB::table('horarios')->delete();
-        $id=DB::table('rutas')->max('id');
-        $nelementos=4;
-        $id=$id-$nelementos+1;
+        
 
 
-        Horarios::create(array(
-    	'salida'=>'2016-11-05 12:36:50',
+    Horarios::create(array(
+    	'salida'=>'2016-11-30 07:00:00',
         'cuota'=>15,
         'disponibles' => 15,
-        'rutas_id'=>$id++,
+        'rutas_id'=>1,
 
     ));
 
     Horarios::create(array(
-        'salida'=>'2016-11-05 12:36:50',
-        'cuota'=>20,
-        'disponibles' => 20,
-        'rutas_id'=>$id++,
-     ));
+        'salida'=>'2016-11-30 07:10:00',
+        'cuota'=>15,
+        'disponibles' => 15,
+        'rutas_id'=>1,
+
+    ));
 
     Horarios::create(array(
-        'salida'=>'2016-11-05 12:36:50',
-        'cuota'=>10,
-        'disponibles' => 10,
-        'rutas_id'=>$id++,
-     ));
+        'salida'=>'2016-11-30 07:15:00',
+        'cuota'=>15,
+        'disponibles' => 15,
+        'rutas_id'=>1,
+
+    ));
 
     Horarios::create(array(
-        'salida'=>'2016-11-05 12:36:50',
-        'cuota'=>10,
-        'disponibles' => 10,
-        'rutas_id'=>$id++,
-     ));
+        'salida'=>'2016-11-30 07:00:00',
+        'cuota'=>15,
+        'disponibles' => 15,
+        'rutas_id'=>2,
+
+    ));
+
+    Horarios::create(array(
+        'salida'=>'2016-11-30 07:15:00',
+        'cuota'=>15,
+        'disponibles' => 15,
+        'rutas_id'=>2,
+
+    ));
+
+    Horarios::create(array(
+        'salida'=>'2016-11-30 07:00:00',
+        'cuota'=>15,
+        'disponibles' => 15,
+        'rutas_id'=>3,
+
+    ));
+
+     Horarios::create(array(
+        'salida'=>'2016-11-30 07:15:00',
+        'cuota'=>15,
+        'disponibles' => 15,
+        'rutas_id'=>3,
+
+    ));
+
+     //SALIDAS
+
+      Horarios::create(array(
+        'salida'=>'2016-11-30 18:00:00',
+        'cuota'=>15,
+        'disponibles' => 15,
+        'rutas_id'=>4,
+
+    ));
+
+    Horarios::create(array(
+        'salida'=>'2016-11-30 18:30:00',
+        'cuota'=>15,
+        'disponibles' => 15,
+        'rutas_id'=>4,
+
+    ));
+
+    Horarios::create(array(
+        'salida'=>'2016-11-30 19:00:00',
+        'cuota'=>15,
+        'disponibles' => 15,
+        'rutas_id'=>4,
+
+    ));
+
+    Horarios::create(array(
+        'salida'=>'2016-11-30 18:00:00',
+        'cuota'=>15,
+        'disponibles' => 15,
+        'rutas_id'=>5,
+
+    ));
+
+    Horarios::create(array(
+        'salida'=>'2016-11-30 18:15:00',
+        'cuota'=>15,
+        'disponibles' => 15,
+        'rutas_id'=>5,
+
+    ));
+
+    Horarios::create(array(
+        'salida'=>'2016-11-30 18:00:00',
+        'cuota'=>15,
+        'disponibles' => 15,
+        'rutas_id'=>6,
+
+    ));
+
+     Horarios::create(array(
+        'salida'=>'2016-11-30 18:15:00',
+        'cuota'=>15,
+        'disponibles' => 15,
+        'rutas_id'=>6,
+
+    ));
+
+    
     }
 }

@@ -11,8 +11,9 @@ use App\Http\Requests;
 use Illuminate\Http\Request;
 use App\Rutas;
 use App\Horarios;
+use App\User;
 use DB;
-
+use Auth;
 
 /**
  * Class HomeController
@@ -51,9 +52,18 @@ class RutasController extends Controller
     {   
         $id = $_GET['id'];
         $items = Horarios::where('rutas_id', '=', $id)->get();
-         foreach ($items as $item): 
-           $html = "<a id=' ".$item->id." ' href='#' class='list-group-item'><div class='col-sm-6'>".$item->salida."</div><div class='col-sm-6'>".$item->disponibles ."</div></a>";
-           echo $html;
+        $count=0;
+        foreach ($items as $item): 
+            $html = 
+            "<tr>
+                <td><a href='../confirmar/".$item->id."'></a>".$item->salida."</td>
+                <td>".$item->disponibles ."</td>
+            </tr>
+            ";
+
+        
+
+        echo $html;
         
         endforeach;
         
@@ -65,6 +75,32 @@ class RutasController extends Controller
         $ruta=Rutas::find($horario->rutas_id);
 
         return view('reservar.confirmar_reserva',compact('horario','ruta'));
+    }
+
+    public function exito($id)
+    {   
+        $iduser=Auth::user()->id;
+        $user=User::find($iduser);
+        $user->reserva=$id;
+        $user->save();
+
+        return redirect()->action('HomeController@index');
+    }
+
+      public function cancelar()
+    {   
+        $iduser=Auth::user()->id;
+        $user=User::find($iduser);
+        $user->reserva=null;
+        $user->save();
+
+        return redirect()->action('HomeController@index');
+    }
+
+      public function qrcode()
+    {   
+        
+        return view('reservar.qr');
     }
 
 

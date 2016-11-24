@@ -28,7 +28,7 @@
         <ul class="sidebar-menu">
             <li class="header"></li>
             <!-- Optionally, you can add icons to the links -->
-            <li><a href="{{ url('home') }}"><i class='fa '></i> <span>Reservar bus</span></a></li>
+            <li><a href="{{ url('/destino') }}"><i class='fa '></i> <span>Reservar bus</span></a></li>
             <li><a href="#"><i class='fa '></i> <span>Mis reservas</span></a></li>
             <li><a href="#"><i class='fa '></i> <span>Rutas</span></a></li>
             <li><a href="#"><i class='fa '></i> <span>Administrar</span></a></li>

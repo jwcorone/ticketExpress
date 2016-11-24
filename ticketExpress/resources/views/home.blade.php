@@ -21,7 +21,14 @@
             </div>
         </div>
          <div>
+            @if(Auth::user()->reserva)
+            <a href="{{ url('/qrcode') }}" style="width:90%" class="btn btn-primary btn-block btn-flat">Ver codigo QR</a>
+
+            <a href="{{ url('/cancelar') }}" style="width:90%" class="btn btn-primary btn-block btn-flat">Cancelar reserva</a>
+
+            @else
             <a href="{{ url('/destino') }}" style="width:90%" class="btn btn-primary btn-block btn-flat">Reservar bus</a>
+            @endif
         </div><!-- /.col -->
     </div>
 </div>
@@ -109,7 +116,17 @@
 
                 var gMarker = new google.maps.Marker(objConfigMarker);
 
-                
+                @if(Auth::user()->reserva)
+
+                myMapsId = '1Lhb8RAxe0Rl1R8TMdQrYAYWnLYg';
+                  new google.maps
+                    .KmlLayer({
+                      map: gMapa,
+                      url: 'https://www.google.com/maps/d/kml?mid=' + myMapsId,
+                      preserveViewport:true
+
+                    });
+                @endif
             }
 
             

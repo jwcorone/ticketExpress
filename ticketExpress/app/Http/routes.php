@@ -59,7 +59,16 @@ Route::group(['middleware' => ['web']], function () {
 
 	Route::get('listar', 'RutasController@listar2');
 
+	Route::get('exito/{id}', 'RutasController@exito');
+
+
 	Route::get('confirmar/{id}', 'RutasController@confirmar');
+
+	Route::get('cancelar', 'RutasController@cancelar');
+
+	Route::get('qrcode', 'RutasController@qrcode');
+
+
 
 
 
