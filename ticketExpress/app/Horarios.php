@@ -11,8 +11,11 @@ class Horarios extends Model
      * @var array
      */
     protected $fillable = [
-        'salida', 'cuota', 'disponible','rutas_id'
+        'salida', 'cuota', 'disponible','rutas_id','estado'
     ];
 
-    
+    public function ruta()
+    {
+        return $this->belongsTo('App\Rutas','rutas_id');
+    }
 }

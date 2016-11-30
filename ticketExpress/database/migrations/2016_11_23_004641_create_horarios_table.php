@@ -17,7 +17,8 @@ class CreateHorariosTable extends Migration
             $table->dateTime('salida');
             $table->integer('cuota')->nullable();
             $table->integer('disponibles')->nullable();
-            $table->integer('rutas_id')->unsigned();       
+            $table->integer('rutas_id')->unsigned();  
+            $table->integer('estado')->nullable();     
             $table->timestamps();
         });
 

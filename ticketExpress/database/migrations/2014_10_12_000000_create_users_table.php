@@ -21,6 +21,8 @@ class CreateUsersTable extends Migration
             $table->string('avatar');
             $table->rememberToken();
             $table->integer('reserva')->nullable();
+            $table->integer('reserva_entrada')->nullable();
+            $table->integer('reserva_salida')->nullable();
             $table->timestamps();
         });
     }

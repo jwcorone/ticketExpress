@@ -103,6 +103,59 @@ class RutasController extends Controller
         return view('reservar.qr');
     }
 
+    
+      public function ubicar_bus()
+    {   
+        
+        return view('reservar.ubicar_bus');
+    }
+
+      public function ubicar_bus1($opcion)
+    {   
+         $idreserva=Auth::user()->reserva;
+
+        $reserva=Horarios::find($idreserva);
+        
+        return view('reservar.ubicar_bus',compact('reserva'));
+    }
+      
+       public function speak()
+    {   
+
+        $array = array('beaches' => array(array("Bondi Beach","-2.210370", "-79.907234"), array("Coogee Beach","-2.212225","-79.906389"), ) ); 
+//         $testLocs = "{
+//   beaches: [
+//             [
+//               'Bondi Beach',
+//               -2.210370,
+//              -79.907234,
+//               4
+//             ],
+//             [
+//               'Coogee Beach',
+//               -2.212225,
+//               -79.903389,
+//               5
+//             ]
+//            ]
+// }";
+
+
+echo json_encode($array);
+
+    }
+
+     public function misreservas()
+    {   
+        $idreserva=Auth::user()->reserva;
+
+        $reserva=Horarios::find($idreserva);
+
+
+        return view('reservar.mis_reservas',compact('reserva'));
+    }
+
+
 
 
 

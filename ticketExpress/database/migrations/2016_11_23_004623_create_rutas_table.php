@@ -17,6 +17,10 @@ class CreateRutasTable extends Migration
             $table->string('nombre');
             $table->string('tipo');
             $table->string('archivo_KML')->nullable();
+            $table->string('origen');
+            $table->string('destino');
+            $table->string('corigen');
+            $table->string('cdestino');
             $table->timestamps();
         });
     }

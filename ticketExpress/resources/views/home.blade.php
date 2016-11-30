@@ -117,6 +117,7 @@
                 var gMarker = new google.maps.Marker(objConfigMarker);
 
                 @if(Auth::user()->reserva)
+                {{--*/ $rutamapa= '1Lhb8RAxe0Rl1R8TMdQrYAYWnLYg' /*--}}
 
                 myMapsId = '1Lhb8RAxe0Rl1R8TMdQrYAYWnLYg';
                   new google.maps

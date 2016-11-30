@@ -51,7 +51,9 @@ Route::group(['middleware' => ['web']], function () {
 	Route::get('destino', array('as' => 'destino', 'uses' => function(){
 		  return view('reservar.entrar_salir');
 		}));
+	
 
+	Route::get('misreservas', 'RutasController@misreservas');
 
 	Route::get('listar_rutas/{opcion}', 'RutasController@listar_rutas');
 
@@ -67,6 +69,13 @@ Route::group(['middleware' => ['web']], function () {
 	Route::get('cancelar', 'RutasController@cancelar');
 
 	Route::get('qrcode', 'RutasController@qrcode');
+
+	Route::get('ubicar_bus', 'RutasController@ubicar_bus');
+
+	Route::get('ubicar_bus/{opcion}', 'RutasController@ubicar_bus1');
+
+	Route::get('speak', 'RutasController@speak');
+
 
 
 

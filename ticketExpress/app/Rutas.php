@@ -11,8 +11,13 @@ class Rutas extends Model
      * @var array
      */
     protected $fillable = [
-        'nombre', 'tipo', 'archivo_KML'
+        'nombre', 'tipo', 'archivo_KML','origen','destino'
     ];
+
+    public function horarios() {
+
+        return $this->hasMany('App\Horarios');
+    }
 
     
 }
