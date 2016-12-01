@@ -99,10 +99,10 @@ class RutasController extends Controller
     {   
         $iduser=Auth::user()->id;
         $user=User::find($iduser);
-        if($opcion='entrar'){
+        if($opcion=='1'){
             $user->reserva_entrada=null;
         }
-        if($opcion='salir'){
+        if($opcion=='2'){
             $user->reserva_salida=null;
         }
         $user->save();
@@ -125,15 +125,18 @@ class RutasController extends Controller
 
       public function ubicar_bus1($opcion)
     {   
+        $titulo="";
         if($opcion=='entrar'){
+            $titulo="Reservas para entrar a ESPOL";
             $idreserva=Auth::user()->reserva_entrada;          
         }
-        else{
+        if($opcion=='salir'){
+            $titulo="Reservas para salir de ESPOL";
             $idreserva=Auth::user()->reserva_salida;  
         }
         $reserva=Horarios::find($idreserva);
         
-        return view('reservar.ubicar_bus',compact('reserva'));
+        return view('reservar.ubicar_bus',compact('reserva','titulo','opcion'));
     }
       
     public function speak()

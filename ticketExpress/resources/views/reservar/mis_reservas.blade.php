@@ -5,7 +5,7 @@
 @endsection
 
 @section('contentheader_title')
-    Elija su destino
+    Mis reservas
 @endsection 
 
 
@@ -15,48 +15,84 @@
 	<div class="col-sm-6">
 		@if($reserva_entrada)
 		<div>		
-			<div>
-				<h2>Reserva para entrar a ESPOL</h2>
-				<div>Ruta: {{$reserva_entrada->ruta->nombre}}</div>
-				<div>Hora de salida:{{$reserva_entrada->salida}}</div>
-				<div>Paradero:{{$reserva_entrada->ruta->origen}}</div>
-				<div>Destino:{{$reserva_entrada->ruta->destino}}</div>
-				<div>Estado del bus: Rumbo al paradero</div>
-				<div>Tiempo de llegada al paradero:<div id='output'></div></div>
-				<div>Tiempo de llegada a su destino: </div>
+			<h2 style="text-align: center; margin-bottom: 4%;">Reserva para entrar a ESPOL</h2>
+			<div style="margin-left:10%; margin-right:10%; display: inline-block;">				
+				<div class="col-sm-6"><strong>Ruta: </strong></div><div class="col-sm-6">{{$reserva_entrada->ruta->nombre}}</div>
+				<div class="col-sm-6"><strong>Hora de salida: </strong></div><div class="col-sm-6">{{$reserva_entrada->salida}}</div>
+				<div class="col-sm-6"><strong>Paradero: </strong></div><div class="col-sm-6">{{$reserva_entrada->ruta->origen}}</div>
+				<div class="col-sm-6"><strong>Destino:</strong></div><div class="col-sm-6">{{$reserva_entrada->ruta->destino}}</div>
+				<div class="col-sm-6"><strong>Estado del bus:</strong></div><div class="col-sm-6"> Rumbo al paradero</div>
+				<div class="col-sm-10"><strong>Tiempo de llegada al paradero:</strong></div><div id='output' class="col-sm-10" style="color: red; text-align: center; font-size: 20px;"></div>
+				<div class="col-sm-10"><strong>Tiempo de llegada a su destino: </strong></div><div class="col-sm-10"></div>
+			</br>
 			</div>
 		</div>
-		<div>
+		<div style="margin: 2%;">
 			<a href="{{ URL('ubicar_bus','entrar') }}" style="width:90%" class="btn btn-primary btn-block btn-flat">Ubicar Bus</a>
 		</div>
-		<div>
-			<a href="{{ url('cancelar','entrar') }}" style="width:90%" class="btn btn-primary btn-block btn-flat">Cancelar reserva</a>
+		<div style="margin: 2%;">
+			<a href="" style="width:90%" class="btn btn-primary btn-block btn-flat">Ver codigo QR</a>
+		</div>
+		<div style="margin: 2%;">
+			<a href="{{ url('cancelar','1') }}" style="width:90%" class="btn btn-primary btn-block btn-flat">Cancelar reserva</a>
 		</div>
 		@else
-		<div>No hay reservas</div>
+		<div>
+					
+			<h2 style="text-align: center; margin-bottom: 4%;">Reserva para entrar a ESPOL</h2>
+			<div style="margin-left:10%; margin-right:10%; display: inline-block;">				
+				
+				<div style="text-align: center; font-size: 20px;"><strong>Usted no tiene reservas </strong></div>
+				<div style="text-align: center; margin-top: 4%;"><img src="../public/Recursos/bus.png" class="logo-lg" alt="Image" height="60%" width="60%"/></div>
+			</br>
+			</div>
+			
+		</div>
+		<div style="margin: 2%;">
+			<a href="{{ URL('listar_rutas','entrar') }}" style="width:90%" class="btn btn-primary btn-block btn-flat">Reservar Bus</a>
+		</div>
+		
 		@endif
 	</div>
 	<div class="col-sm-6">
+
 		@if($reserva_salida)
-		<div>
-			<h2>Reserva para salir de la ESPOL</h2>
-			<div>Ruta: {{$reserva_salida->ruta->nombre}}</div>
-			<div>Hora de salida:{{$reserva_salida->salida}}</div>
-			<div>Paradero:{{$reserva_salida->ruta->origen}}</div>
-			<div>Destino:{{$reserva_salida->ruta->destino}}</div>
-			<div>Estado del bus: Rumbo al paradero</div>
-			<div>Tiempo de llegada al paradero:<div id='output2'></div></div>
-			<div>Tiempo de llegada a su destino: </div>
+		<h2 style="text-align: center; margin-bottom: 4%;">Reserva para salir de la ESPOL</h2>
+		<div style="margin-left:10%; margin-right:10%; display: inline-block;">
+			
+			<div class="col-sm-6"><strong>Ruta: </strong></div><div class="col-sm-6">{{$reserva_salida->ruta->nombre}}</div>
+			<div class="col-sm-6"><strong>Hora de salida: </strong></div><div class="col-sm-6">{{$reserva_salida->salida}}</div>
+			<div class="col-sm-6"><strong>Paradero: </strong></div><div class="col-sm-6">{{$reserva_salida->ruta->origen}}</div>
+			<div class="col-sm-6"><strong>Destino:</strong></div><div class="col-sm-6">{{$reserva_salida->ruta->destino}}</div>
+			<div class="col-sm-6"><strong>Estado del bus: </strong></div><div class="col-sm-6">Rumbo al paradero</div>
+			<div class="col-sm-10"><strong>Tiempo de llegada al paradero:</strong></div><div id='output2' class="col-sm-10" style="color: red; text-align: center; font-size: 20px;"></div>
+			<div class="col-sm-10"><strong>Tiempo de llegada a su destino: </strong></div><div class="col-sm-6"></div>
 
 		</div>
-		<div>
+		<div style="margin: 2%;">
 			<a href="{{ URL('ubicar_bus','salir') }}" style="width:90%" class="btn btn-primary btn-block btn-flat">Ubicar Bus</a>
 		</div>
-		<div>
-			<a href="{{ url('cancelar','salir') }}" style="width:90%" class="btn btn-primary btn-block btn-flat">Cancelar reserva</a>
+		<div style="margin: 2%;">
+			<a href="" style="width:90%" class="btn btn-primary btn-block btn-flat">Ver codigo QR</a>
+		</div>
+		<div style="margin: 2%;">
+			<a href="{{ url('cancelar','2') }}" style="width:90%" class="btn btn-primary btn-block btn-flat">Cancelar reserva</a>
 		</div>
 		@else
-		<div>No hay reservas</div>
+		<div>
+					
+			<h2 style="text-align: center; margin-bottom: 4%;">Reserva para salir de la ESPOL</h2>
+			<div style="margin-left:10%; margin-right:10%; display: inline-block;">				
+				
+				<div style="text-align: center; font-size: 20px;"><strong>Usted no tiene reservas </strong></div>
+				<div style="text-align: center; margin-top: 4%;"><img src="../public/Recursos/bus.png" class="logo-lg" alt="Image" height="60%" width="60%"/></div>
+			</br>
+			</div>
+			
+		</div>
+		<div style="margin: 2%;">
+			<a href="{{ URL('listar_rutas','salir') }}" style="width:90%" class="btn btn-primary btn-block btn-flat">Reservar Bus</a>
+		</div>
 		@endif
 		
 	</div>
@@ -130,7 +166,7 @@
 		                  }  
 		                  var beach = coordenadas[0];
 				          var origin1 = new google.maps.LatLng(beach[1], beach[2]);
-						  var destinationA = new google.maps.LatLng({{$reserva_entrada->ruta->corigen}});
+				          var destinationA = new google.maps.LatLng({{$reserva_entrada->ruta->corigen}});
 						  var service = new google.maps.DistanceMatrixService();
 						  service.getDistanceMatrix(
 						    {
@@ -185,6 +221,9 @@
 		                  }  
 		                  var beach = coordenadas[0];
 				          var origin1 = new google.maps.LatLng(beach[1], beach[2]);
+				          console.log(beach[1], beach[2]);
+				          console.log({{$reserva_salida->ruta->corigen}});
+
 						  var destinationA = new google.maps.LatLng({{$reserva_salida->ruta->corigen}});
 						  var service = new google.maps.DistanceMatrixService();
 						  service.getDistanceMatrix(

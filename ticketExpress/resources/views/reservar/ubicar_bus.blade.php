@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
 @section('htmlheader_title')
-  Elija su destino
+  {{$titulo}}
 @endsection
 
 @section('contentheader_title')
-    Elija su destino
+    <h2>{{$titulo}}</h2>
 @endsection 
 
 
@@ -77,13 +77,14 @@
                 setInterval(function() { 
                     updateTheMarkers(map,gLatLon);
                     distancia();
-                 },  2*5000);
+                 },  2*60000);
 
       }
     }
 
     function initialize() {
-      ubicacion();       
+      ubicacion(); 
+      distancia();      
     }
 
     function removeMarkers(){
@@ -186,19 +187,22 @@ function callback(response, status) {
 
 </script>
 
-<div>
-  <h2>Reserva para entrar a ESPOL</h2>
-  <div>Ruta: {{$reserva->ruta->nombre}}</div>
-  <div>Hora de salida:{{$reserva->salida}}</div>
-  <div>Paradero:{{$reserva->ruta->origen}}</div>
-  <div>Destino:{{$reserva->ruta->destino}}</div>
-  <div>Estado del bus: Rumbo al paradero</div>
-  <div>Tiempo de llegada al paradero:<div id='output'></div></div>
+<div class="row">
+  <div class="col-sm-6">
+    <div style="margin-left:20%; margin-top:5%;">
+      <div><strong>Ruta: </strong></div><div> {{$reserva->ruta->nombre}}</div></br>
+      <div><strong>Hora de salida: </strong></div><div>{{$reserva->salida}}</div></br>
+      <div><strong>Paradero: </strong></div><div>{{$reserva->ruta->origen}}</div></br>
+      <div><strong>Destino: </strong></div><div>{{$reserva->ruta->destino}}</div></br>
+      <div><strong>Estado del bus: </strong></div><div>Rumbo al paradero</div></br>
+      <div><strong>Tiempo de llegada al paradero:</strong></div><div id='output' style="color: red;"></div></br>
+    </div>
+  </div>
 
+  <div class="col-sm-6">
+    <div id="map-canvas" style="width:500px; height:500px;">
+    </div>  
+  </div>
 </div>
-
-<div id="map-canvas" style="width:500px; height:500px;">
-</div>
-
 
 @endsection
