@@ -25,11 +25,6 @@
 <script>
     var arrMarkers = [];
 
-    var beaches = [
-      ['Bondi Beach', -2.210370, -79.907234],
-      ['Coogee Beach', -2.212225,-79.903389]
-      
-    ];
 
     function setMarkers(map, locations) {
       for (var i = 0; i < locations.length; i++) {
@@ -46,13 +41,31 @@
       }
     }
 
-    function ubicacion(map) {
+    function ubicacion() {
       navigator.geolocation.getCurrentPosition( fn_ok ,fn_mal);
             function fn_mal(){}
             function fn_ok(rta){
                 var lon=rta.coords.longitude;
                 var lat=rta.coords.latitude;
                 var gLatLon=new google.maps.LatLng(lat,lon);
+                
+                var mapOptions = {
+                  zoom: 16,
+                  center: gLatLon,
+                }
+                var map = new google.maps.Map(document.getElementById('map-canvas'),
+                                              mapOptions);
+
+                myMapsId = '{{$reserva->ruta->archivo_KML}}';
+                new google.maps
+                  .KmlLayer({
+                    map: map,
+                    url: 'https://www.google.com/maps/d/kml?mid=' + myMapsId,
+                    preserveViewport:true
+
+                  });
+
+                updateTheMarkers(map,gLatLon);
                 var objConfigMarker={
                     position:gLatLon,
                     map:map,
@@ -60,20 +73,17 @@
                 }
 
                 var gMarker = new google.maps.Marker(objConfigMarker);
+
+                setInterval(function() { 
+                    updateTheMarkers(map,gLatLon);
+                    distancia();
+                 },  2*5000);
+
       }
     }
 
     function initialize() {
-      var mapOptions = {
-        zoom: 16,
-        center: new google.maps.LatLng(-2.211342, -79.903819),
-      }
-      var map = new google.maps.Map(document.getElementById('map-canvas'),
-                                    mapOptions);
-      setMarkers(map, beaches);
-      ubicacion(map);
-      distancia();
-       
+      ubicacion();       
     }
 
     function removeMarkers(){
@@ -87,11 +97,9 @@
 
     google.maps.event.addDomListener(window, 'load', initialize);
 
-     setInterval(function() { 
-        updateTheMarkers();
-     },  2*60000);
+     
 
-    function updateTheMarkers(){
+    function updateTheMarkers(map,gLatLon){
       $.ajax({
       type: "GET",
       url: "http://localhost/ticketExpress/ticketExpress/public/speak",
@@ -108,34 +116,51 @@
                     beaches.push(jsonObj.beaches[i]);
                   }
 
+
                   //Adding them to the map
-                  var mapOptions = {
-                    zoom: 16,
-                    center: new google.maps.LatLng(-2.211342, -79.903819),
-                  }
-                  var map = new google.maps.Map(document.getElementById('map-canvas'),
-                                                mapOptions);
-                              
-                  ubicacion(map);
                   setMarkers(map, beaches);
-                  distancia();
+
               }
          });
     }
 
-    function distancia(){
-    var origin1 = new google.maps.LatLng(-2.210370, -79.907234);
-  var destinationA = new google.maps.LatLng(-2.212225, -79.903389);
-  var service = new google.maps.DistanceMatrixService();
-  service.getDistanceMatrix(
-    {
-      origins: [origin1],
-      destinations: [destinationA],
-      travelMode: google.maps.TravelMode.DRIVING,
-     
-    }, callback);
 
- }
+
+
+    function distancia(){
+        $.ajax({
+          type: "GET",
+          url: "http://localhost/ticketExpress/ticketExpress/public/speak",
+                  success: function (data) {
+                      //We remove the old markers
+                      var jsonObj = $.parseJSON(data),
+                          i;
+
+                      coordenadas =[];//Erasing the coordenadas array
+
+                      //Adding the new ones
+                      for(i=0;i < jsonObj.beaches.length; i++) {
+                        coordenadas.push(jsonObj.beaches[i]);
+                      }  
+                      var beach = coordenadas[0];
+                      var origin1 = new google.maps.LatLng(beach[1], beach[2]);
+                      var destinationA = new google.maps.LatLng({{$reserva->ruta->corigen}});
+                      var service = new google.maps.DistanceMatrixService();
+                      service.getDistanceMatrix(
+                      {
+                        origins: [origin1],
+                        destinations: [destinationA],
+                        travelMode: google.maps.TravelMode.DRIVING,
+                       
+                      }, callback);                
+                                  
+                  } 
+        });        
+      
+
+    }
+
+ 
 
 function callback(response, status) {
   if (status == google.maps.DistanceMatrixStatus.OK) {
@@ -152,9 +177,8 @@ function callback(response, status) {
         var duration = element.duration.text;
         var from = origins[i];
         var to = destinations[j];
-        outputDiv.innerHTML += origins[i] + ' to ' + destinations[j] +
-              ': ' + results[j].distance.text + ' in ' +
-              results[j].duration.text + '<br>';
+        outputDiv.innerHTML += results[j].distance.text + ' en ' +
+                  results[j].duration.text + '<br>';
       }
     }
   }
