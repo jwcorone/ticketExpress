@@ -57,16 +57,14 @@ Route::group(['middleware' => ['web']], function () {
 
 	Route::get('listar_rutas/{opcion}', 'RutasController@listar_rutas');
 
-	Route::get('listar/{id}', 'RutasController@listar');
-
 	Route::get('listar', 'RutasController@listar2');
 
-	Route::get('exito/{id}', 'RutasController@exito');
+	Route::get('exito/{opcion}/{id}', 'RutasController@exito');
 
 
-	Route::get('confirmar/{id}', 'RutasController@confirmar');
+	Route::get('confirmar/{opcion}/{id}', 'RutasController@confirmar');
 
-	Route::get('cancelar', 'RutasController@cancelar');
+	Route::get('cancelar/{opcion}', 'RutasController@cancelar');
 
 	Route::get('qrcode', 'RutasController@qrcode');
 

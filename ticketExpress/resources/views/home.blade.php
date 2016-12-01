@@ -21,10 +21,9 @@
             </div>
         </div>
          <div>
-            @if(Auth::user()->reserva)
-            <a href="{{ url('/qrcode') }}" style="width:90%" class="btn btn-primary btn-block btn-flat">Ver codigo QR</a>
+            @if(Auth::user()->reserva_entrada || Auth::user()->reserva_salida)
 
-            <a href="{{ url('/cancelar') }}" style="width:90%" class="btn btn-primary btn-block btn-flat">Cancelar reserva</a>
+            <a href="{{ url('/misreservas') }}" style="width:90%" class="btn btn-primary btn-block btn-flat">Mis reservas</a>
 
             @else
             <a href="{{ url('/destino') }}" style="width:90%" class="btn btn-primary btn-block btn-flat">Reservar bus</a>

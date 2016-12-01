@@ -3,7 +3,7 @@
 
 
 @section('contentheader_title')
-    {{$titulo}} 
+    {{$titulo}} {{$opcion}} 
 @endsection 
 
 
@@ -19,16 +19,29 @@
 
 
 <script language="javascript">
+@if($opcion=='entrar')
+    $(document).ready(function(){
 
-$(document).ready(function(){
+        $('.lgi1').on('click',function(){
+         id = $(this).attr('id');
+          op = $(this).attr('opcion');
+         $.get("../listar",{op:op,id:id}, function(data){
+                    $("#list2").html(data);
+                }); 
+    });
+    });
+@else
+    $(document).ready(function(){
 
-    $('.lgi1').on('click',function(){
-     id = $(this).attr('id');
-     $.get("../listar",{id:id}, function(data){
-                $("#list2").html(data);
-            }); 
-});
-});
+        $('.lgi1').on('click',function(){
+         id = $(this).attr('id');
+         op = $(this).attr('opcion');
+         $.get("../listar",{op:op,id:id}, function(data){
+                    $("#list2").html(data);
+                }); 
+    });
+    });
+@endif
 </script>
 
 <div class="container row">
@@ -37,7 +50,7 @@ $(document).ready(function(){
         <h2>Rutas disponibles</h2>
         <div class="list-group">
             @foreach ($items as $key => $item)
-                <a id="{{ $item->id }}" href="#" class="list-group-item lgi1">{{ $item->nombre }}</a>
+                <a id="{{ $item->id }}" opcion="{{$opcion}}" href="#" class="list-group-item lgi1">{{ $item->nombre }}</a>
             @endforeach
             
         </div>

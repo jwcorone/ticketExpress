@@ -40,23 +40,25 @@ class RutasController extends Controller
     {   
         $items = DB::table('rutas')->where('tipo', '=', $opcion)->get();
 
-        if($opcion='entrar')
+        if($opcion=='entrar'){
             $titulo='Entrar a ESPOL';
-        else
+            }
+        else{
             $titulo='Salir de ESPOL';
-
-        return view('reservar.listar_rutas',compact('items','titulo'));
+            }
+        return view('reservar.listar_rutas',compact('items','titulo','opcion'));
     }
 
     public function listar2()
     {   
         $id = $_GET['id'];
+        $opcion= $_GET['op'];
         $items = Horarios::where('rutas_id', '=', $id)->get();
         $count=0;
         foreach ($items as $item): 
             $html = 
             "<tr>
-                <td><a href='../confirmar/".$item->id."'></a>".$item->salida."</td>
+                <td><a href='../confirmar/".$opcion."/".$item->id."'></a>".$item->salida."</td>
                 <td>".$item->disponibles ."</td>
             </tr>
             ";
@@ -69,32 +71,43 @@ class RutasController extends Controller
         
     }
 
-    public function confirmar($id)
+    public function confirmar($opcion,$id)
     {   
         $horario=Horarios::find($id);
         $ruta=Rutas::find($horario->rutas_id);
 
-        return view('reservar.confirmar_reserva',compact('horario','ruta'));
+        return view('reservar.confirmar_reserva',compact('horario','ruta','opcion'));
     }
 
-    public function exito($id)
+    public function exito($opcion,$id)
     {   
         $iduser=Auth::user()->id;
         $user=User::find($iduser);
-        $user->reserva=$id;
+        if($opcion=='entrar'){
+            $user->reserva_entrada=$id;
+        }
+        else{
+            $user->reserva_salida=$id;
+        }
+        
         $user->save();
 
         return redirect()->action('HomeController@index');
     }
 
-      public function cancelar()
+      public function cancelar($opcion)
     {   
         $iduser=Auth::user()->id;
         $user=User::find($iduser);
-        $user->reserva=null;
+        if($opcion='entrar'){
+            $user->reserva_entrada=null;
+        }
+        if($opcion='salir'){
+            $user->reserva_salida=null;
+        }
         $user->save();
 
-        return redirect()->action('HomeController@index');
+        return redirect()->action('RutasController@misreservas');
     }
 
       public function qrcode()
@@ -112,8 +125,12 @@ class RutasController extends Controller
 
       public function ubicar_bus1($opcion)
     {   
-         $idreserva=Auth::user()->reserva;
-
+        if($opcion=='entrar'){
+            $idreserva=Auth::user()->reserva_entrada;          
+        }
+        else{
+            $idreserva=Auth::user()->reserva_salida;  
+        }
         $reserva=Horarios::find($idreserva);
         
         return view('reservar.ubicar_bus',compact('reserva'));
@@ -130,12 +147,19 @@ class RutasController extends Controller
 
      public function misreservas()
     {   
-        $idreserva=Auth::user()->reserva;
+        $idreserva1=Auth::user()->reserva_entrada;
+        $idreserva2=Auth::user()->reserva_salida;
+        $reserva_entrada=null;
+        $reserva_salida=null;
+        if($idreserva1){
+            $reserva_entrada=Horarios::find($idreserva1);
+        }
+        if($idreserva2){
+            $reserva_salida=Horarios::find($idreserva2);
+        }
 
-        $reserva=Horarios::find($idreserva);
 
-
-        return view('reservar.mis_reservas',compact('reserva'));
+        return view('reservar.mis_reservas',compact('reserva_entrada','reserva_salida'));
     }
 
 

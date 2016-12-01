@@ -31,7 +31,7 @@
             </div>
         </div>
          <div>
-            <a href="{{ url('/exito',[$horario->id]) }}" style="width:90%" class="btn btn-primary btn-block btn-flat">Reservar ahora</a>
+            <a href="{{ url('/exito',[$opcion,$horario->id]) }}" style="width:90%" class="btn btn-primary btn-block btn-flat">Reservar ahora</a>
         </div><!-- /.col -->
     </div>
 </div>
