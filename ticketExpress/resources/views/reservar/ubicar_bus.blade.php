@@ -44,6 +44,7 @@
      function setMarkers2(map) {
 
       $.getJSON('http://api.thingspeak.com/channels/196276/feed/last.json', function(data) {
+        removeMarkers();
           console.log(data);
           lt=data.field1;
           lg=data.field2;
@@ -103,7 +104,26 @@ console.log(lat,lon);
                     //updateTheMarkers(map,gLatLon);
                     setMarkers2(map);
                     distancia2();
-                 },  2*2000);
+                 },  2*10000);
+
+                setInterval(function() { 
+                    //updateTheMarkers(map,gLatLon);
+                    gMarker.setMap(null);
+                    navigator.geolocation.getCurrentPosition( fn_ok ,fn_mal);
+                    function fn_ok(rta){
+                        var lon=rta.coords.longitude;
+                        var lat=rta.coords.latitude;
+                        var gLatLon=new google.maps.LatLng(lat,lon);
+                      }
+                    var objConfigMarker={
+                        position:gLatLon,
+                        map:map,
+                        title:"usted esta aqui"
+                    }
+
+                    gMarker = new google.maps.Marker(objConfigMarker);
+                    
+                 },  2*60000);
 
       }
     }
@@ -188,10 +208,10 @@ console.log(lat,lon);
     }
 
         function distancia2(){
-           $.getJSON('http://api.thingspeak.com/channels/357/fields/3/last.json', function(data) {
+           $.getJSON('http://api.thingspeak.com/channels/196276/feed/last.json', function(data) {
                   console.log(data);
-                  lt=208.753601;
-                  lg=7956.908203;
+                  lt=data.field1;
+                  lg=data.field2;
                   lat=-1*(Math.floor(lt/100)+((lt/100-Math.floor(lt/100))*100)/60);
                   lon=-1*(Math.floor(lg/100)+((lg/100-Math.floor(lg/100))*100)/60);
                   console.log(lat,lon);
