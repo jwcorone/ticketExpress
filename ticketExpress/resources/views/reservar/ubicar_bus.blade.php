@@ -43,7 +43,7 @@
 
      function setMarkers2(map) {
 
-      $.getJSON('http://api.thingspeak.com/channels/357/feed/last.json', function(data) {
+      $.getJSON('http://api.thingspeak.com/channels/196276/feed/last.json', function(data) {
           console.log(data);
           lt=data.field1;
           lg=data.field2;
@@ -103,7 +103,7 @@ console.log(lat,lon);
                     //updateTheMarkers(map,gLatLon);
                     setMarkers2(map);
                     distancia2();
-                 },  2*60000);
+                 },  2*2000);
 
       }
     }
