@@ -14,6 +14,7 @@ use App\Horarios;
 use App\User;
 use DB;
 use Auth;
+use Crypt;
 
 /**
  * Class HomeController
@@ -112,8 +113,15 @@ class RutasController extends Controller
 
       public function qrcode()
     {   
-        
-        return view('reservar.qr');
+        $texto="clave secreta";
+        $clave=Crypt::encrypt($texto);
+        return view('reservar.qr',compact('clave'));
+    }
+
+    public function decryptqr($clave)
+    {   
+        $text= Crypt::decrypt($clave);
+        printf($text);
     }
 
     
@@ -164,6 +172,8 @@ class RutasController extends Controller
 
         return view('reservar.mis_reservas',compact('reserva_entrada','reserva_salida'));
     }
+
+  
 
 
 

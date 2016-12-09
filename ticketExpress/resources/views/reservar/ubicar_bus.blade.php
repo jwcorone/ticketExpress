@@ -41,6 +41,30 @@
       }
     }
 
+     function setMarkers2(map) {
+
+      $.getJSON('http://api.thingspeak.com/channels/357/feed/last.json', function(data) {
+          console.log(data);
+          lt=data.field1;
+          lg=data.field2;
+          lat=-1*(Math.floor(lt/100)+((lt/100-Math.floor(lt/100))*100)/60);
+          lon=-1*(Math.floor(lg/100)+((lg/100-Math.floor(lg/100))*100)/60);
+console.log(lat,lon);
+            var myLatLng = new google.maps.LatLng(lat, lon);
+            var marker = new google.maps.Marker({
+            position: myLatLng,
+            map: map,
+            icon: "../Recursos/icono-bus.png",
+            title: "bus"
+        });
+
+        arrMarkers.push(marker);
+      });
+    
+       
+      
+    }
+
     function ubicacion() {
       navigator.geolocation.getCurrentPosition( fn_ok ,fn_mal);
             function fn_mal(){}
@@ -65,7 +89,8 @@
 
                   });
 
-                updateTheMarkers(map,gLatLon);
+                //updateTheMarkers(map,gLatLon);
+                setMarkers2(map);
                 var objConfigMarker={
                     position:gLatLon,
                     map:map,
@@ -75,8 +100,9 @@
                 var gMarker = new google.maps.Marker(objConfigMarker);
 
                 setInterval(function() { 
-                    updateTheMarkers(map,gLatLon);
-                    distancia();
+                    //updateTheMarkers(map,gLatLon);
+                    setMarkers2(map);
+                    distancia2();
                  },  2*60000);
 
       }
@@ -84,7 +110,7 @@
 
     function initialize() {
       ubicacion(); 
-      distancia();      
+      distancia2();      
     }
 
     function removeMarkers(){
@@ -157,6 +183,30 @@
                                   
                   } 
         });        
+      
+
+    }
+
+        function distancia2(){
+           $.getJSON('http://api.thingspeak.com/channels/357/fields/3/last.json', function(data) {
+                  console.log(data);
+                  lt=208.753601;
+                  lg=7956.908203;
+                  lat=-1*(Math.floor(lt/100)+((lt/100-Math.floor(lt/100))*100)/60);
+                  lon=-1*(Math.floor(lg/100)+((lg/100-Math.floor(lg/100))*100)/60);
+                  console.log(lat,lon);
+
+                 var origin1 = new google.maps.LatLng(lat, lon);
+                      var destinationA = new google.maps.LatLng({{$reserva->ruta->corigen}});
+                      var service = new google.maps.DistanceMatrixService();
+                      service.getDistanceMatrix(
+                      {
+                        origins: [origin1],
+                        destinations: [destinationA],
+                        travelMode: google.maps.TravelMode.DRIVING,
+                       
+                      }, callback);           
+           });
       
 
     }

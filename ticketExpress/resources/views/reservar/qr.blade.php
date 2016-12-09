@@ -9,6 +9,8 @@
 
 @section('main-content')
 
-Cargando codigo QR
-
+<div>
+{!! 
+QrCode::size(250)->generate($clave); !!}
+</div>
 @endsection

@@ -74,6 +74,9 @@ Route::group(['middleware' => ['web']], function () {
 
 	Route::get('speak', 'RutasController@speak');
 
+	Route::get('decryptqr/{clave}', 'RutasController@decryptqr');
+
+
 
 
 

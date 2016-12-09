@@ -31,7 +31,7 @@
 			<a href="{{ URL('ubicar_bus','entrar') }}" style="width:90%" class="btn btn-primary btn-block btn-flat">Ubicar Bus</a>
 		</div>
 		<div style="margin: 2%;">
-			<a href="" style="width:90%" class="btn btn-primary btn-block btn-flat">Ver codigo QR</a>
+			<a href="{{ URL('qrcode') }}" style="width:90%" class="btn btn-primary btn-block btn-flat">Ver codigo QR</a>
 		</div>
 		<div style="margin: 2%;">
 			<a href="{{ url('cancelar','1') }}" style="width:90%" class="btn btn-primary btn-block btn-flat">Cancelar reserva</a>
@@ -73,7 +73,7 @@
 			<a href="{{ URL('ubicar_bus','salir') }}" style="width:90%" class="btn btn-primary btn-block btn-flat">Ubicar Bus</a>
 		</div>
 		<div style="margin: 2%;">
-			<a href="" style="width:90%" class="btn btn-primary btn-block btn-flat">Ver codigo QR</a>
+			<a href="{{ URL('qrcode') }}"  style="width:90%" class="btn btn-primary btn-block btn-flat">Ver codigo QR</a>
 		</div>
 		<div style="margin: 2%;">
 			<a href="{{ url('cancelar','2') }}" style="width:90%" class="btn btn-primary btn-block btn-flat">Cancelar reserva</a>
