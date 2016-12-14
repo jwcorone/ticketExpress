@@ -127,7 +127,7 @@
     setInterval(function() { 
         distancia();
         distancia2();
-    },  2*60000);
+    },  2*30000);
 
     function updateTheMarkers(){
       $.ajax({
@@ -150,34 +150,25 @@
     }
     @if($reserva_entrada)
     function distancia(){
-		$.ajax({
-		      type: "GET",
-		      url: "http://localhost/ticketExpress/ticketExpress/public/speak",
-		              success: function (data) {
-		                  //We remove the old markers
-		                  var jsonObj = $.parseJSON(data),
-		                      i;
+		 $.getJSON('http://api.thingspeak.com/channels/196276/feed/last.json', function(data) {
+                  console.log(data);
+                  lt=data.field1;
+                  lg=data.field2;
+                  lat=-1*(Math.floor(lt/100)+((lt/100-Math.floor(lt/100))*100)/60);
+                  lon=-1*(Math.floor(lg/100)+((lg/100-Math.floor(lg/100))*100)/60);
+                  console.log(lat,lon);
 
-		                  coordenadas =[];//Erasing the coordenadas array
-
-		                  //Adding the new ones
-		                  for(i=0;i < jsonObj.beaches.length; i++) {
-		                    coordenadas.push(jsonObj.beaches[i]);
-		                  }  
-		                  var beach = coordenadas[0];
-				          var origin1 = new google.maps.LatLng(beach[1], beach[2]);
-				          var destinationA = new google.maps.LatLng({{$reserva_entrada->ruta->corigen}});
-						  var service = new google.maps.DistanceMatrixService();
-						  service.getDistanceMatrix(
-						    {
-						      origins: [origin1],
-						      destinations: [destinationA],
-						      travelMode: google.maps.TravelMode.DRIVING,
-						     
-						    }, callback);                
-		                              
-		              }	
-		         });    		
+                 var origin1 = new google.maps.LatLng(lat, lon);
+                      var destinationA = new google.maps.LatLng({{$reserva_entrada->ruta->corigen}});
+                      var service = new google.maps.DistanceMatrixService();
+                      service.getDistanceMatrix(
+                      {
+                        origins: [origin1],
+                        destinations: [destinationA],
+                        travelMode: google.maps.TravelMode.DRIVING,
+                       
+                      }, callback);           
+           }); 	  		
 			
 
 		 }
@@ -205,37 +196,25 @@
 		@endif
 		 @if($reserva_salida)
 		  function distancia2(){
-		$.ajax({
-		      type: "GET",
-		      url: "http://localhost/ticketExpress/ticketExpress/public/speak",
-		              success: function (data) {
-		                  //We remove the old markers
-		                  var jsonObj = $.parseJSON(data),
-		                      i;
+		   $.getJSON('http://api.thingspeak.com/channels/196276/feed/last.json', function(data) {
+                  console.log(data);
+                  lt=data.field1;
+                  lg=data.field2;
+                  lat=-1*(Math.floor(lt/100)+((lt/100-Math.floor(lt/100))*100)/60);
+                  lon=-1*(Math.floor(lg/100)+((lg/100-Math.floor(lg/100))*100)/60);
+                  console.log(lat,lon);
 
-		                  coordenadas =[];//Erasing the coordenadas array
-
-		                  //Adding the new ones
-		                  for(i=0;i < jsonObj.beaches.length; i++) {
-		                    coordenadas.push(jsonObj.beaches[i]);
-		                  }  
-		                  var beach = coordenadas[0];
-				          var origin1 = new google.maps.LatLng(beach[1], beach[2]);
-				          console.log(beach[1], beach[2]);
-				          console.log({{$reserva_salida->ruta->corigen}});
-
-						  var destinationA = new google.maps.LatLng({{$reserva_salida->ruta->corigen}});
-						  var service = new google.maps.DistanceMatrixService();
-						  service.getDistanceMatrix(
-						    {
-						      origins: [origin1],
-						      destinations: [destinationA],
-						      travelMode: google.maps.TravelMode.DRIVING,
-						     
-						    }, callback2);                
-		                              
-		              }	
-		         });    		
+                 var origin1 = new google.maps.LatLng(lat, lon);
+                      var destinationA = new google.maps.LatLng({{$reserva_salida->ruta->corigen}});
+                      var service = new google.maps.DistanceMatrixService();
+                      service.getDistanceMatrix(
+                      {
+                        origins: [origin1],
+                        destinations: [destinationA],
+                        travelMode: google.maps.TravelMode.DRIVING,
+                       
+                      }, callback2);           
+           }); 		
 			
 
 		 }

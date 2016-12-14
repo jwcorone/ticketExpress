@@ -106,24 +106,24 @@ console.log(lat,lon);
                     distancia2();
                  },  2*10000);
 
-                setInterval(function() { 
-                    //updateTheMarkers(map,gLatLon);
-                    gMarker.setMap(null);
-                    navigator.geolocation.getCurrentPosition( fn_ok ,fn_mal);
-                    function fn_ok(rta){
-                        var lon=rta.coords.longitude;
-                        var lat=rta.coords.latitude;
-                        var gLatLon=new google.maps.LatLng(lat,lon);
-                      }
-                    var objConfigMarker={
-                        position:gLatLon,
-                        map:map,
-                        title:"usted esta aqui"
-                    }
+                // setInterval(function() { 
+                //     //updateTheMarkers(map,gLatLon);
+                //     gMarker.setMap(null);
+                //     navigator.geolocation.getCurrentPosition( fn_ok ,fn_mal);
+                //     function fn_ok(rta){
+                //         var lon=rta.coords.longitude;
+                //         var lat=rta.coords.latitude;
+                //         var gLatLon=new google.maps.LatLng(lat,lon);
+                //       }
+                //     var objConfigMarker={
+                //         position:gLatLon,
+                //         map:map,
+                //         title:"usted esta aqui"
+                //     }
 
-                    gMarker = new google.maps.Marker(objConfigMarker);
+                //     gMarker = new google.maps.Marker(objConfigMarker);
                     
-                 },  2*60000);
+                //  },  2*60000);
 
       }
     }

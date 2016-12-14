@@ -124,6 +124,21 @@ class RutasController extends Controller
         printf($text);
     }
 
+    public function decryptqr2($clave)
+    {   
+        try{
+            $text= Crypt::decrypt($clave);
+            if($text==="clave secreta"){
+                printf("valido");
+                }
+            else
+                printf("invalido");
+
+    }catch(\RuntimeException $e){
+        printf("invalido");
+    }
+    }
+
     
       public function ubicar_bus()
     {   
