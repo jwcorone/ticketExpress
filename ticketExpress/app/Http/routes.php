@@ -66,7 +66,7 @@ Route::group(['middleware' => ['web']], function () {
 
 	Route::get('cancelar/{opcion}', 'RutasController@cancelar');
 
-	Route::get('qrcode', 'RutasController@qrcode');
+	Route::get('qrcode/{opcion}', 'RutasController@qrcode');
 
 	Route::get('ubicar_bus', 'RutasController@ubicar_bus');
 

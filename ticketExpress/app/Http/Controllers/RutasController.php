@@ -12,6 +12,8 @@ use Illuminate\Http\Request;
 use App\Rutas;
 use App\Horarios;
 use App\User;
+use App\Reserva_entrada;
+use App\Reserva_salida;
 use DB;
 use Auth;
 use Crypt;
@@ -41,7 +43,7 @@ class RutasController extends Controller
     {   
         $items = DB::table('rutas')->where('tipo', '=', $opcion)->get();
 
-        if($opcion=='entrar'){
+        if($opcion==='entrar'){
             $titulo='Entrar a ESPOL';
             }
         else{
@@ -84,11 +86,30 @@ class RutasController extends Controller
     {   
         $iduser=Auth::user()->id;
         $user=User::find($iduser);
-        if($opcion=='entrar'){
-            $user->reserva_entrada=$id;
+        if($opcion==='entrar'){
+            $ren=new Reserva_entrada();
+            $ren->users_id=$iduser;
+            $ren->bus_id='1';
+            $ren->horarios_id=$id;
+            $ren->estado='reservado';
+            $ren->save();
+
+            $h=Horarios::find($id);
+            $h->disponibles=$h->disponibles-1;
+            $h->save();
+
         }
         else{
-            $user->reserva_salida=$id;
+            $ren=new Reserva_salida();
+            $ren->users_id=$iduser;
+            $ren->bus_id='1';
+            $ren->horarios_id=$id;
+            $ren->estado='reservado';
+            $ren->save();
+
+             $h=Horarios::find($id);
+            $h->disponibles=$h->disponibles-1;
+            $h->save();
         }
         
         $user->save();
@@ -100,21 +121,34 @@ class RutasController extends Controller
     {   
         $iduser=Auth::user()->id;
         $user=User::find($iduser);
-        if($opcion=='1'){
-            $user->reserva_entrada=null;
+        if($opcion==='1'){
+            $h=Horarios::find($user->reservaEntrada->horarios_id);
+            $h->disponibles=$h->disponibles+1;
+            $h->save();
+            $user->reservaEntrada->delete();
         }
-        if($opcion=='2'){
-            $user->reserva_salida=null;
+        if($opcion==='2'){
+
+            $h=Horarios::find($user->reservaSalida->horarios_id);
+            $h->disponibles=$h->disponibles+1;
+            $h->save();
+            $user->reservaSalida->delete();
         }
         $user->save();
 
         return redirect()->action('RutasController@misreservas');
     }
 
-      public function qrcode()
+      public function qrcode($tipo)
     {   
-        $texto="clave secreta";
-        $clave=Crypt::encrypt($texto);
+        $iduser=Auth::user()->id;
+        if($tipo==1){//reserva entrada
+            $code=Auth::user()->reservaEntrada->horarios_id;
+        }
+        else{
+            $code=Auth::user()->reservaSalida->horarios_id;
+        }
+        $clave=Crypt::encrypt($iduser.','.$code.','.$tipo);
         return view('reservar.qr',compact('clave'));
     }
 
@@ -128,15 +162,28 @@ class RutasController extends Controller
     {   
         try{
             $text= Crypt::decrypt($clave);
-            if($text==="clave secreta"){
-                printf("valido");
-                }
-            else
-                printf("invalido");
+            $cadena=explode(',',$text);      //0.-id  1.-code 2.-tipo
+            $user=User::find($cadena[0]);
+            if($cadena[2]=='1'){
+                $codigo=$user->reservaEntrada->horarios_id;
+                if($codigo==$cadena[1])
+                    printf("valido");
+                else
+                    printf("invalido");
+            }
+            if($cadena[2]=='2'){
+                $codigo=$user->reservaSalida->horarios_id;
+                if($codigo==$cadena[1])
+                    printf("valido");
+                else
+                    printf("invalido");
+            }
 
-    }catch(\RuntimeException $e){
-        printf("invalido");
-    }
+            
+
+        }catch(\RuntimeException $e){
+            printf("invalido");
+        }
     }
 
     
@@ -151,11 +198,11 @@ class RutasController extends Controller
         $titulo="";
         if($opcion=='entrar'){
             $titulo="Reservas para entrar a ESPOL";
-            $idreserva=Auth::user()->reserva_entrada;          
+            $idreserva=Auth::user()->reservaEntrada->horarios_id;          
         }
         if($opcion=='salir'){
             $titulo="Reservas para salir de ESPOL";
-            $idreserva=Auth::user()->reserva_salida;  
+            $idreserva=Auth::user()->reservaSalida->horarios_id;  
         }
         $reserva=Horarios::find($idreserva);
         
@@ -173,15 +220,15 @@ class RutasController extends Controller
 
      public function misreservas()
     {   
-        $idreserva1=Auth::user()->reserva_entrada;
-        $idreserva2=Auth::user()->reserva_salida;
+        $reserva1=Auth::user()->reservaEntrada;
+        $reserva2=Auth::user()->reservaSalida;
         $reserva_entrada=null;
         $reserva_salida=null;
-        if($idreserva1){
-            $reserva_entrada=Horarios::find($idreserva1);
+        if($reserva1){
+            $reserva_entrada=Horarios::find($reserva1->horarios_id);
         }
-        if($idreserva2){
-            $reserva_salida=Horarios::find($idreserva2);
+        if($reserva2){
+            $reserva_salida=Horarios::find($reserva2->horarios_id);
         }
 
 

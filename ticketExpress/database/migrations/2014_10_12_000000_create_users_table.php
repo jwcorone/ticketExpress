@@ -20,9 +20,6 @@ class CreateUsersTable extends Migration
             $table->string('facebook_id')->unique()->nullable();
             $table->string('avatar');
             $table->rememberToken();
-            $table->integer('reserva')->nullable();
-            $table->integer('reserva_entrada')->nullable();
-            $table->integer('reserva_salida')->nullable();
             $table->timestamps();
         });
     }

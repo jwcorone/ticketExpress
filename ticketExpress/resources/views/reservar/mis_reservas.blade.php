@@ -31,7 +31,7 @@
 			<a href="{{ URL('ubicar_bus','entrar') }}" style="width:90%" class="btn btn-primary btn-block btn-flat">Ubicar Bus</a>
 		</div>
 		<div style="margin: 2%;">
-			<a href="{{ URL('qrcode') }}" style="width:90%" class="btn btn-primary btn-block btn-flat">Ver codigo QR</a>
+			<a href="{{ URL('qrcode','1') }}" style="width:90%" class="btn btn-primary btn-block btn-flat">Ver codigo QR</a>
 		</div>
 		<div style="margin: 2%;">
 			<a href="{{ url('cancelar','1') }}" style="width:90%" class="btn btn-primary btn-block btn-flat">Cancelar reserva</a>
@@ -73,7 +73,7 @@
 			<a href="{{ URL('ubicar_bus','salir') }}" style="width:90%" class="btn btn-primary btn-block btn-flat">Ubicar Bus</a>
 		</div>
 		<div style="margin: 2%;">
-			<a href="{{ URL('qrcode') }}"  style="width:90%" class="btn btn-primary btn-block btn-flat">Ver codigo QR</a>
+			<a href="{{ URL('qrcode','2') }}"  style="width:90%" class="btn btn-primary btn-block btn-flat">Ver codigo QR</a>
 		</div>
 		<div style="margin: 2%;">
 			<a href="{{ url('cancelar','2') }}" style="width:90%" class="btn btn-primary btn-block btn-flat">Cancelar reserva</a>
@@ -129,25 +129,25 @@
         distancia2();
     },  2*30000);
 
-    function updateTheMarkers(){
-      $.ajax({
-      type: "GET",
-      url: "http://localhost/ticketExpress/ticketExpress/public/speak",
-              success: function (data) {
-                  //We remove the old markers
-                  var jsonObj = $.parseJSON(data),
-                      i;
+    // function updateTheMarkers(){
+    //   $.ajax({
+    //   type: "GET",
+    //   url: "http://localhost/ticketExpress/ticketExpress/public/speak",
+    //           success: function (data) {
+    //               //We remove the old markers
+    //               var jsonObj = $.parseJSON(data),
+    //                   i;
 
-                  coordenadas =[];//Erasing the coordenadas array
+    //               coordenadas =[];//Erasing the coordenadas array
 
-                  //Adding the new ones
-                  for(i=0;i < jsonObj.beaches.length; i++) {
-                    coordenadas.push(jsonObj.beaches[i]);
-                  }                  
+    //               //Adding the new ones
+    //               for(i=0;i < jsonObj.beaches.length; i++) {
+    //                 coordenadas.push(jsonObj.beaches[i]);
+    //               }                  
                               
-              }
-         });
-    }
+    //           }
+    //      });
+    // }
     @if($reserva_entrada)
     function distancia(){
 		 $.getJSON('http://api.thingspeak.com/channels/196276/feed/last.json', function(data) {

@@ -23,4 +23,18 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function reservaSalida() {
+
+        return $this->hasOne('App\Reserva_salida','users_id');
+    }
+
+    public function reservaEntrada() {
+
+        return $this->hasOne('App\Reserva_entrada','users_id');
+    }
+
+    
+
+
 }
