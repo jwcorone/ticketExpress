@@ -23,18 +23,63 @@ use Crypt;
 class ServerController extends Controller
 {
 
-public function decryptqr2($clave)
+// public function decryptqr2($clave)
+//     {   
+//         try{
+//             $text= Crypt::decrypt($clave);
+//             if($text==="clave secreta"){
+//                 printf("valido");
+//                 }
+//             else
+//                 printf("invalido");
+
+//           }catch(\RuntimeException $e){
+//                 printf("invalido");
+//             }
+//     }
+
+public function decryptqr($clave)
     {   
+        $text= Crypt::decrypt($clave);
+        printf($text);
+    }
+
+    public function decryptqr2($clave)
+    {   
+        
+
         try{
             $text= Crypt::decrypt($clave);
-            if($text==="clave secreta"){
-                printf("valido");
-                }
-            else
-                printf("invalido");
+            $cadena=explode(',',$text);      //0.-id  1.-code 2.-tipo
+            $user=User::find($cadena[0]);
 
-    }catch(\RuntimeException $e){
+            if($cadena[2]==='1'){
+                $codigo=$user->reservaEntrada->horarios_id;
+                if($codigo===$cadena[1])
+                    printf("valido");
+                else
+                    printf("invalido");
+            }
+            if($cadena[2]==='2'){
+                $codigo=$user->reservaSalida->horarios_id;
+                if($codigo===$cadena[1])
+                    printf("valido");
+                else
+                    printf("invalido");
+            }
+
+            
+
+        }catch(\RuntimeException $e){
+            printf("invalido");
+        }
+
+    }
+     public function decryptqrvacio()
+    { 
         printf("invalido");
     }
-    }
+
+
+
 }

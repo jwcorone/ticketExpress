@@ -152,47 +152,7 @@ class RutasController extends Controller
         return view('reservar.qr',compact('clave'));
     }
 
-    public function decryptqr($clave)
-    {   
-        $text= Crypt::decrypt($clave);
-        printf($text);
-    }
-
-    public function decryptqr2($clave)
-    {   
-        
-
-        try{
-            $text= Crypt::decrypt($clave);
-            $cadena=explode(',',$text);      //0.-id  1.-code 2.-tipo
-            $user=User::find($cadena[0]);
-
-            if($cadena[2]==='1'){
-                $codigo=$user->reservaEntrada->horarios_id;
-                if($codigo===$cadena[1])
-                    printf("valido");
-                else
-                    printf("invalido");
-            }
-            if($cadena[2]==='2'){
-                $codigo=$user->reservaSalida->horarios_id;
-                if($codigo===$cadena[1])
-                    printf("valido");
-                else
-                    printf("invalido");
-            }
-
-            
-
-        }catch(\RuntimeException $e){
-            printf("invalido");
-        }
-
-    }
-     public function decryptqrvacio()
-    { 
-        printf("invalido");
-    }
+    
 
     
       public function ubicar_bus()
