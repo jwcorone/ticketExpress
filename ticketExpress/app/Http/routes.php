@@ -78,6 +78,9 @@ Route::group(['middleware' => ['web']], function () {
 
 	Route::get('decryptqr2/{clave}', 'RutasController@decryptqr2');
 
+	Route::get('decryptqr2', 'RutasController@decryptqrvacio');
+
+
 
 
 
